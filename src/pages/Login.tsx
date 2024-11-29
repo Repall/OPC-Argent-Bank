@@ -37,14 +37,14 @@ export default function Login() {
   };
 
   return (
-    <div className="flex-1 bg-background">
+    <div className="py-12 bg-background">
       <section className="m-auto box-border w-[300px] bg-white p-8">
         <i className="fa fa-user-circle block text-center text-secondary"></i>
         <h2 className="m-5 text-center text-2xl font-bold text-secondary">
           Sign In
         </h2>
         <form onSubmit={handleSubmit}>
-          <div className="mb-4 flex flex-col text-left">
+          <div className="mb-4 flex flex-col text-left"> 
             <label className="font-bold" htmlFor="email">
               Email
             </label>

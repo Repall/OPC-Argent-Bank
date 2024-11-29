@@ -35,7 +35,7 @@ export default function Profile() {
 
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
-  
+
     if (!token && !storedToken) {
       navigate("/login");
     } else if (storedToken && !token) {
@@ -43,75 +43,61 @@ export default function Profile() {
       authMiddleware.fetchProfile(dispatch, storedToken, navigate);
     }
   }, [token, navigate, dispatch]);
-  
 
   return (
     <>
-      <div className="flex-1 bg-background">
+      <div className="py-12 bg-background">
         <div className="text-white text-center mb-8 ">
-        {!editionMode ? (
-          <div className="flex-1 ">
-            <h2 className="py-5 text-3xl font-bold">
-              Welcome back <br />
-              {firstName} {lastName} !
-            </h2>
-            <button
-              onClick={handleEditClick}
-              className="cursor-default border-primary bg-primary p-[10px] text-sm font-bold "
-            >
-              Edit Name
-            </button>
-          </div>
-        ) : (
-          
-          <form onSubmit={(e) => e.preventDefault()}>
-            <h2 className="py-5 text-3xl font-bold">Edit user info</h2>
+          {!editionMode ? (
             <div>
-              <label>User name : </label>
-              <input
-                className="text-black"
-                type="text"
-                value={editUserName}
-                onChange={(e) => setEditUserName(e.target.value)}
-                required
-              />
+              <h2 className="py-5 text-3xl font-bold">
+                Welcome back <br />
+                {firstName} {lastName} !
+              </h2>
+              <button onClick={handleEditClick} className="cursor-default border-primary bg-primary p-[10px] text-sm font-bold ">
+                Edit Name
+              </button>
             </div>
-            <div>
-              <label>Prénom :</label>
-              <input type="text" value={firstName} disabled />
-            </div>
-            <div>
-              <label>Nom :</label>
-              <input type="text" value={lastName} disabled />
-            </div>
-            <button type="button" onClick={handleSaveClick} className="cursor-default border-primary bg-primary p-[10px] text-sm font-bold text-white">
-              Sauvegarder
-            </button>
-            <button type="button" onClick={handleCancelClick} className="cursor-default border-primary bg-primary p-[10px] text-sm font-bold text-white">
-              Cancel
-            </button>
-          </form>
-        )}
-      </div>
+          ) : (
+            <form className="" onSubmit={(e) => e.preventDefault()}>
+              <h2 className="py-5 text-3xl font-bold">Edit user info</h2>
+              <div>
+                <label>User name : </label>
+                <input className="text-black" type="text" value={editUserName} onChange={(e) => setEditUserName(e.target.value)} required />
+              </div>
+              <div>
+                <label>Prénom :</label>
+                <input type="text" value={firstName} disabled />
+              </div>
+              <div>
+                <label>Nom :</label>
+                <input type="text" value={lastName} disabled />
+              </div>
+              <div className="m-4 space-x-4">
+                <button
+                  type="button"
+                  onClick={handleSaveClick}
+                  className="cursor-default border-primary bg-primary p-[10px] text-sm font-bold text-white"
+                >
+                  Sauvegarder
+                </button>
+                <button
+                  type="button"
+                  onClick={handleCancelClick}
+                  className="cursor-default border-primary bg-primary p-[10px] text-sm font-bold text-white"
+                >
+                  Cancel
+                </button>
+              </div>
+            </form>
+          )}
+        </div>
 
-      <div>
-
-        <ViewTransactions
-          title="Argent Bank Checking (x8349)"
-          balance="$2,082.79"
-          availableBalance="Available Balance"
-          />
-        <ViewTransactions
-          title="Argent Bank Savings (x6712)"
-          balance="$10,928.42"
-          availableBalance="Available Balance"
-          />
-        <ViewTransactions
-          title="Argent Bank Credit Card (x8349)"
-          balance="$184.30"
-          availableBalance="Current Balance"
-          />
-          </div>
+        <div>
+          <ViewTransactions title="Argent Bank Checking (x8349)" balance="$2,082.79" availableBalance="Available Balance" />
+          <ViewTransactions title="Argent Bank Savings (x6712)" balance="$10,928.42" availableBalance="Available Balance" />
+          <ViewTransactions title="Argent Bank Credit Card (x8349)" balance="$184.30" availableBalance="Current Balance" />
+        </div>
       </div>
     </>
   );

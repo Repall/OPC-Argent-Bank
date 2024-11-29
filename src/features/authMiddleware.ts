@@ -75,14 +75,13 @@ export const authMiddleware = {
       if (rememberMe) {
         localStorage.setItem("token", token);
       } else {
-        localStorage.removeItem("token")
-        
+        localStorage.removeItem("token")       
       }
       // Récupération des informations utilisateur
       await authMiddleware.fetchProfile(dispatch, token, navigate);
 
       // Redirection après connexion réussie
-      navigate("/user");
+      navigate("/profile");
     } catch (error) {
       console.error("Erreur lors de la connexion :", error);
       if (error instanceof Error) {
