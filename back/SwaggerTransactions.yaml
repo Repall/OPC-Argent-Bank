@@ -1,0 +1,135 @@
+swagger: '2.0'
+info:
+  title: ArgentBank Transactions API
+  description: API endpoints for managing and viewing transactions.
+  version: '1.0.0'
+host: localhost:3001
+basePath: /api/v1
+schemes:
+  - http
+paths:
+  /transactions:
+    get:
+      tags:
+        - Transactions
+      summary: Retrieve transactions for the current month
+      description: Returns all transactions for the current user, grouped by account.
+      parameters:
+        - in: query
+          name: accountId
+          type: string
+          required: false
+          description: Filter transactions by account ID (optional).
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Transactions retrieved successfully.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Transaction'
+        '401':
+          description: Unauthorized. User not authenticated.
+        '500':
+          description: Internal Server Error
+  /transactions/{transactionId}:
+    get:
+      tags:
+        - Transactions
+      summary: Get details of a specific transaction
+      description: Retrieve detailed information for a specific transaction.
+      parameters:
+        - in: path
+          name: transactionId
+          type: string
+          required: true
+          description: ID of the transaction to retrieve.
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Transaction details retrieved successfully.
+          schema:
+            $ref: '#/definitions/TransactionDescription'
+        '404':
+          description: Transaction not found.
+        '401':
+          description: Unauthorized. User not authenticated.
+        '500':
+          description: Internal Server Error
+    put:
+      tags:
+        - Transactions
+      summary: Update a transaction
+      description: Update details of an existing transaction.
+      parameters:
+        - in: path
+          name: transactionId
+          type: string
+          required: true
+          description: ID of the transaction to update.
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: '#/definitions/TransactionUpdate'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Transaction updated successfully.
+          schema:
+            $ref: '#/definitions/Transaction'
+        '400':
+          description: Bad request. Invalid data provided.
+        '404':
+          description: Transaction not found.
+        '401':
+          description: Unauthorized. User not authenticated.
+        '500':
+          description: Internal Server Error
+definitions:
+  Transaction:
+    type: object
+    properties:
+      transactionId:
+        type: string
+        description: Unique identifier for the transaction.
+      accountId:
+        type: string
+        description: ID of the account associated with the transaction.
+      date:
+        type: string
+        format: date
+        description: Date of the transaction.
+      amount:
+        type: number
+        description: Amount added or withdrawn in the transaction.
+      balance:
+        type: number
+        description: Account balance after the transaction.
+      description:
+        type: string
+        description: Details about the transaction.
+  TransactionDescription:
+    type: object
+    properties:
+      type:
+        type: string
+        description: Type of transaction.
+      category:
+        type: string
+        description: Category associated with the transaction (editable).
+      note:
+        type: string
+        description: Note for the transaction (editable).
+  TransactionUpdate:
+    type: object
+    properties:
+      category:
+        type: string
+        description: Updated category for the transaction.
+      note:
+        type: string
+        description: Updated note for the transaction.

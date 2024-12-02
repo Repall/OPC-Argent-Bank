@@ -48,7 +48,7 @@ export const authMiddleware = {
     navigate: NavigateFunction,
   ): Promise<void> => {
     try {
-      // Requête de connexion
+
       console.log("Requête envoyée à /user/login");
       const response = await fetch(loginURL, {
         method: "POST",
@@ -68,19 +68,16 @@ export const authMiddleware = {
         throw new Error("Token manquant dans la réponse du serveur");
       }
 
-      // Mise à jour du store avec le token
       dispatch(setAuthenticating({ isLoggedIn: true, token }));
 
-      // Enregistre le token dans le localStorage si "Remember Me" est activé
       if (rememberMe) {
         localStorage.setItem("token", token);
       } else {
         localStorage.removeItem("token")       
       }
-      // Récupération des informations utilisateur
+
       await authMiddleware.fetchProfile(dispatch, token, navigate);
 
-      // Redirection après connexion réussie
       navigate("/profile");
     } catch (error) {
       console.error("Erreur lors de la connexion :", error);
@@ -92,6 +89,7 @@ export const authMiddleware = {
     }
   },
 
+  // FETCH LES INFOS PROFILS
   fetchProfile: async (
     dispatch: Dispatch,
     token: string,
@@ -161,7 +159,6 @@ export const authMiddleware = {
 
       const updatedData: ProfileResponse = await response.json();
 
-      // Mise à jour du store Redux avec les nouvelles données
       dispatch(
         setUserInfos({
           userName: updatedData.body.userName,
@@ -171,7 +168,6 @@ export const authMiddleware = {
         }),
       );
 
-      // Sortir du mode édition
       dispatch(editUser({ editionMode: false }));
 
       console.log(
