@@ -9,7 +9,7 @@ export default function Home() {
     <>
       <div className="text-secondary relative bg-back-tree">
         <img className="h-[400px] w-full object-cover" src={bankTree} alt="image accueil" />
-        <section className="bg-white w-[350px] mx-auto my-8 p-8 text-left absolute top-12 right-12">
+        <section className="bg-white w-[300px] sm:w-[350px] mx-auto my-8 p-8 text-left absolute top-12 max-sm:inset-x-0 sm:right-12">
           <h2 className="hidden ">Promoted Content</h2>
           <p className="font-bold text-2xl">No fees.</p>
           <p className="font-bold text-2xl">No minimum deposit.</p>
@@ -17,7 +17,7 @@ export default function Home() {
           <p className="text-xl">Open a savings account with Argent Bank today !</p>
         </section>
       </div>
-      <section className="grid grid-cols-3 border-b-2 border-gray-300">
+      <section className="md:grid md:grid-cols-3 border-b-2 border-gray-300">
         <h2 className="hidden">Features</h2>
         <InforamtionHome
           title="You are our #1 priority"

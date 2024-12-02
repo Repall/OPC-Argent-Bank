@@ -2,7 +2,7 @@ type transactionsType = {title : string, balance : string, availableBalance : st
 
 export default function ViewTransactions({title, balance, availableBalance} : transactionsType)   {
   return (
-    <section className="mx-auto my-0 mb-8 flex w-4/5 flex-col items-center justify-between bg-white p-6 md:flex-row">
+    <section className="mx-auto my-0 mb-8 flex w-4/5 flex-col items-center justify-between bg-white p-6 sm:flex-row">
       <h3 className="hidden">Accounts</h3>
       <div className="text-left">
         <h4>{title}</h4>
